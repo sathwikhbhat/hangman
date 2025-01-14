@@ -7,6 +7,8 @@ import java.awt.event.WindowEvent;
 
 public class Hangman extends JFrame implements ActionListener {
 
+    private static Hangman instance;
+
     private int incorrectGuesses = 0;
     private String[] wordChallenge;
 
@@ -16,7 +18,7 @@ public class Hangman extends JFrame implements ActionListener {
     private JDialog resultsDialog;
     private Font customFont;
 
-    public Hangman() {
+    protected Hangman() {
         super("Hangman Game");
         setSize(CommonConstants.FRAME_SIZE);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -34,6 +36,12 @@ public class Hangman extends JFrame implements ActionListener {
 
         addGUIComponents();
 
+    }
+
+    public static Hangman getInstance() {
+        if(instance == null)
+            instance = new Hangman();
+        return instance;
     }
 
     private void addGUIComponents() {
@@ -119,10 +127,8 @@ public class Hangman extends JFrame implements ActionListener {
             if(command.equals("Restart"))
                 resultsDialog.setVisible(false);
         }
-        else if(command.equals("Quit")) {
-            dispose();
-            return;
-        }
+        else if(command.equals("Quit"))
+            System.exit(0);
         else {
             JButton button = (JButton) e.getSource();
             button.setEnabled(false);
@@ -170,7 +176,7 @@ public class Hangman extends JFrame implements ActionListener {
         resultsDialog.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                dispose();
+                System.exit(0);
             }
         });
 

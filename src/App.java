@@ -5,7 +5,7 @@ public class App {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new Hangman().setVisible(true);
+                new Hangman().getInstance().setVisible(true);
             }
         });
     }
