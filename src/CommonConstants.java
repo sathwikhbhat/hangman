@@ -11,4 +11,6 @@ public class CommonConstants {
 
     public static final Dimension FRAME_SIZE = new Dimension(540, 760);
     public static final Dimension Button_PANEL_SIZE = new Dimension(FRAME_SIZE.width, (int) (FRAME_SIZE.height * 0.42));
+    public static final Dimension RESULT_PANEL_SIZE = new Dimension((int)FRAME_SIZE.width/2, (int)FRAME_SIZE.height/6);
+
 }

@@ -2,11 +2,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class Hangman extends JFrame implements ActionListener {
 
-    private JLabel hangmanImage, categoryLabel, hiddenWordLabel;
+    private JLabel hangmanImage, categoryLabel, hiddenWordLabel, resultsLabel, wordLabel;
     private JButton[] letterButtons;
+    private JDialog resultsDialog;
 
     private final WordDB wordDB;
     private int incorrectGuesses = 0;
@@ -25,6 +28,7 @@ public class Hangman extends JFrame implements ActionListener {
         wordDB = new WordDB();
         letterButtons = new JButton[26];
         wordChallenge = wordDB.loadChallenge();
+        createResultDialog();
 
         addGUIComponents();
 
@@ -102,8 +106,12 @@ public class Hangman extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
-        if(command.equals("Reset"))
+        if(command.equals("Reset") || command.equals("Restart")) {
             resetGame();
+
+            if(command.equals("Restart"))
+                resultsDialog.setVisible(false);
+        }
         else if(command.equals("Quit")) {
             dispose();
             return;
@@ -123,14 +131,59 @@ public class Hangman extends JFrame implements ActionListener {
 
                 hiddenWordLabel.setText(String.valueOf(hiddenWord));
 
+                if(!hiddenWordLabel.getText().contains("_")) {
+                    resultsLabel.setText("You got it right!!");
+                    resultsDialog.setVisible(true);
+                }
+
             }
             else {
                 button.setBackground(Color.RED);
                 incorrectGuesses++;
-                CustomTools.updateImage(hangmanImage, "resources/hangman" + (incorrectGuesses + 1) + ".png");
+                CustomTools.updateImage(hangmanImage, "resources/" + (incorrectGuesses + 1) + ".png");
+                if(incorrectGuesses >= 6) {
+                    resultsLabel.setText("Too Bad. Try Again!!");
+                    resultsDialog.setVisible(true);
+                }
             }
-
+            wordLabel.setText("Word: " + wordChallenge[1]);
         }
+    }
+//48:52
+    private void createResultDialog() {
+
+        resultsDialog = new JDialog();
+        resultsDialog.setTitle("Results");
+        resultsDialog.setSize(CommonConstants.RESULT_PANEL_SIZE);
+        resultsDialog.getContentPane().setBackground(CommonConstants.BACKGROUND_COLOUR);
+        resultsDialog.setResizable(false);
+        resultsDialog.setLocationRelativeTo(this);
+        resultsDialog.setModal(true);
+        resultsDialog.setLayout(new GridLayout(3, 1));
+        resultsDialog.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                resetGame();
+            }
+        });
+
+        resultsLabel = new JLabel();
+        resultsLabel.setForeground(Color.WHITE);
+        resultsLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+        wordLabel = new JLabel();
+        wordLabel.setForeground(Color.WHITE);
+        wordLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+        JButton restartButton = new JButton("Restart");
+        restartButton.setForeground(Color.WHITE);
+        restartButton.setBackground(CommonConstants.SECONDARY_COLOUR);
+        restartButton.addActionListener(this);
+
+        resultsDialog.add(resultsLabel);
+        resultsDialog.add(wordLabel);
+        resultsDialog.add(restartButton);
+
     }
 
     private void resetGame() {
