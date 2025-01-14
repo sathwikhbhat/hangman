@@ -1,7 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Hangman extends JFrame {
+public class Hangman extends JFrame implements ActionListener {
 
     private JLabel hangmanImage, categoryLabel, hiddenWordLabel;
     private JButton[] letterButtons;
@@ -48,6 +50,7 @@ public class Hangman extends JFrame {
 
         hiddenWordLabel = new JLabel(CustomTools.hideWord(wordChallenge[1]));
         hiddenWordLabel.setForeground(Color.WHITE);
+        hiddenWordLabel.setHorizontalAlignment(SwingConstants.CENTER);
         hiddenWordLabel.setBounds(
                 0,
                 categoryLabel.getY() + categoryLabel.getPreferredSize().height + 50,
@@ -65,10 +68,39 @@ public class Hangman extends JFrame {
                 );
         buttonPanel.setLayout(gridLayout);
 
+        for(char c = 'A'; c <= 'Z'; c++) {
+            JButton button = new JButton(Character.toString(c));
+            button.setBackground(CommonConstants.PRIMARY_COLOUR);
+            button.setForeground(Color.WHITE);
+            button.addActionListener(this);
+
+            int currentIndex = c - 'A';
+            letterButtons[currentIndex] = button;
+            buttonPanel.add(letterButtons[currentIndex]);
+        }
+
+
+        JButton resetButton = new JButton("Reset");
+        resetButton.setForeground(Color.WHITE);
+        resetButton.setBackground(CommonConstants.SECONDARY_COLOUR);
+        resetButton.addActionListener(this);
+        buttonPanel.add(resetButton);
+
+        JButton quitButton = new JButton("Quit");
+        quitButton.setForeground(Color.WHITE);
+        quitButton.setBackground(CommonConstants.SECONDARY_COLOUR);
+        quitButton.addActionListener(this);
+        buttonPanel.add(quitButton);
+
         getContentPane().add(categoryLabel);
         getContentPane().add(hangmanImage);
         getContentPane().add(hiddenWordLabel);
+        getContentPane().add(buttonPanel);
 
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
 }
