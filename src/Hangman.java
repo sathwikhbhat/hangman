@@ -7,14 +7,14 @@ import java.awt.event.WindowEvent;
 
 public class Hangman extends JFrame implements ActionListener {
 
-    private JLabel hangmanImage, categoryLabel, hiddenWordLabel, resultsLabel, wordLabel;
-    private JButton[] letterButtons;
-    private JDialog resultsDialog;
-
-    private final WordDB wordDB;
     private int incorrectGuesses = 0;
     private String[] wordChallenge;
 
+    private final WordDB wordDB;
+    private JLabel hangmanImage, categoryLabel, hiddenWordLabel, resultsLabel, wordLabel;
+    private JButton[] letterButtons;
+    private JDialog resultsDialog;
+    private Font customFont;
 
     public Hangman() {
         super("Hangman Game");
@@ -28,6 +28,8 @@ public class Hangman extends JFrame implements ActionListener {
         wordDB = new WordDB();
         letterButtons = new JButton[26];
         wordChallenge = wordDB.loadChallenge();
+
+        customFont = CustomTools.createFont(CommonConstants.FONT_PATH);
         createResultDialog();
 
         addGUIComponents();
@@ -40,6 +42,7 @@ public class Hangman extends JFrame implements ActionListener {
         hangmanImage.setBounds(0,0, hangmanImage.getPreferredSize().width, hangmanImage.getPreferredSize().height);
 
         categoryLabel = new JLabel(wordChallenge[0]);
+        categoryLabel.setFont(customFont.deriveFont(Font.BOLD, 30f));
         categoryLabel.setHorizontalAlignment(SwingConstants.CENTER);
         categoryLabel.setOpaque(true);
         categoryLabel.setForeground(Color.WHITE);
@@ -53,6 +56,7 @@ public class Hangman extends JFrame implements ActionListener {
         );
 
         hiddenWordLabel = new JLabel(CustomTools.hideWord(wordChallenge[1]));
+        hiddenWordLabel.setFont(customFont.deriveFont(Font.BOLD, 60f));
         hiddenWordLabel.setForeground(Color.WHITE);
         hiddenWordLabel.setHorizontalAlignment(SwingConstants.CENTER);
         hiddenWordLabel.setBounds(
@@ -75,6 +79,7 @@ public class Hangman extends JFrame implements ActionListener {
         for(char c = 'A'; c <= 'Z'; c++) {
             JButton button = new JButton(Character.toString(c));
             button.setBackground(CommonConstants.PRIMARY_COLOUR);
+            button.setFont(customFont.deriveFont(Font.BOLD, 20f));
             button.setForeground(Color.WHITE);
             button.addActionListener(this);
 
@@ -85,12 +90,14 @@ public class Hangman extends JFrame implements ActionListener {
 
 
         JButton resetButton = new JButton("Reset");
+        resetButton.setFont(customFont.deriveFont(Font.BOLD, 20f));
         resetButton.setForeground(Color.WHITE);
         resetButton.setBackground(CommonConstants.SECONDARY_COLOUR);
         resetButton.addActionListener(this);
         buttonPanel.add(resetButton);
 
         JButton quitButton = new JButton("Quit");
+        quitButton.setFont(customFont.deriveFont(Font.BOLD, 20f));
         quitButton.setForeground(Color.WHITE);
         quitButton.setBackground(CommonConstants.SECONDARY_COLOUR);
         quitButton.addActionListener(this);
@@ -149,7 +156,7 @@ public class Hangman extends JFrame implements ActionListener {
             wordLabel.setText("Word: " + wordChallenge[1]);
         }
     }
-//48:52
+
     private void createResultDialog() {
 
         resultsDialog = new JDialog();

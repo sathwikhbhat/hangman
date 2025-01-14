@@ -18,7 +18,7 @@ public class WordDB {
 
             String filePath = getClass().getClassLoader().getResource(CommonConstants.DATA_PATH).getPath();
 
-            if (filePath.contains("%20")) filePath.replace("%20", " ");
+            if (filePath.contains("%20")) filePath.replaceAll("%20", " ");
 
             BufferedReader reader = new BufferedReader(new FileReader(filePath));
 
