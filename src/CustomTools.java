@@ -5,7 +5,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.SQLOutput;
 
 public class CustomTools {
 
@@ -51,10 +50,10 @@ public class CustomTools {
     public static String hideWord(String word) {
         String hiddenWord = "";
         for (int i = 0; i < word.length(); i++)
-            if(Character.isLetter(word.charAt(i)))
-                hiddenWord += "_ ";
+            if(!Character.isWhitespace(word.charAt(i)))
+                hiddenWord += "*";
             else
-                hiddenWord += word.charAt(i);
+                hiddenWord += " ";
         return hiddenWord;
     }
 

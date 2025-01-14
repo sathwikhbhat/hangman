@@ -138,7 +138,7 @@ public class Hangman extends JFrame implements ActionListener {
 
                 hiddenWordLabel.setText(String.valueOf(hiddenWord));
 
-                if(!hiddenWordLabel.getText().contains("_")) {
+                if(!hiddenWordLabel.getText().contains("*")) {
                     resultsLabel.setText("You got it right!!");
                     resultsDialog.setVisible(true);
                 }

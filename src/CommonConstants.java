@@ -4,7 +4,6 @@ public class CommonConstants {
 
     public static final String DATA_PATH = "resources/data.txt";
     public static final String IMAGE_PATH = "resources/1.png";
-
     public static final String FONT_PATH = "resources/Cartoonero.ttf";
 
     public static final Color PRIMARY_COLOUR = Color.decode("#142120");
