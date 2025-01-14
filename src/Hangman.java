@@ -170,7 +170,7 @@ public class Hangman extends JFrame implements ActionListener {
         resultsDialog.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                resetGame();
+                dispose();
             }
         });
 

@@ -1,7 +1,11 @@
-Animals, Cat, Dog, Bird, Fish, Horse, Cow, Pig, Sheep, Goat, Deer, Tiger, Lion
-Fruits, Apple, Banana, Orange, Grape, Mango, Pear, Pineapple, Strawberry, Watermelon, Cherry
-Vegetables, Carrot, Potato, Onion, Tomato, Lettuce, Broccoli, Spinach, Cucumber, Pepper, Garlic
-Colors, Red, Blue, Green, Yellow, Orange, Purple, Pink, Brown, Black, White
-Countries, Pakistan, United Kingdom, France, Spain, Italy, Germany, Japan, China, India, Brazil
-Sports, Soccer, Football, Basketball, Baseball, Tennis, Cricket, Kabaddi, Badminton, Swimming
-Games, Chess, Poker, Sudoku, Scrabble, Monopoly, Snake and Ladder, Ludo
+Animals, Cat, Dog, Bird, Fish, Horse, Cow, Pig, Sheep, Goat, Deer, Tiger, Lion, Fox, Owl, Bat, Duck
+Fruits, Apple, Banana, Orange, Grape, Mango, Pear, Pineapple, Strawberry, Watermelon, Cherry, Fig
+Vegetables, Carrot, Potato, Onion, Tomato, Lettuce, Broccoli, Spinach, Cucumber, Pepper, Garlic, Pea, Corn, Cabbage
+Colors, Red, Blue, Green, Yellow, Orange, Purple, Pink, Brown, Black, White, Cyan
+Countries, Pakistan, United Kingdom, France, Spain, Italy, Germany, Japan, China, India, Brazil, Italy, Korea
+Sports, Soccer, Football, Basketball, Baseball, Tennis, Cricket, Kabaddi, Badminton, Swimming, Archery
+Games, Chess, Poker, Sudoku, Scrabble, Monopoly, Snake and Ladder, Ludo, Uno
+Flowers, Rose, Lily, Iris, Dahlia, Daisy, Tulip, Poppy, Zinnia, Aster, Lotus
+Cars, Tesla, Audi, Ford, BMW, Jeep, Kia, Honda, Lexus, Mazda, Tata, Hyundai, Ferrari
+Food, Pizza, Burger, Sushi, Pasta, Sandwich, Salad, Steak, Tacos, Curry, Soup
+Ocean Life, Shark, Whale, Dolphin, Octopus, Jellyfish, Sea Turtle, Seahorse, Coral, Squid, Starfish
