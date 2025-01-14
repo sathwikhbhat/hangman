@@ -19,6 +19,17 @@ public class CustomTools {
         return null;
     }
 
+    public static void updateImage(JLabel imageContainer, String resources) {
+        BufferedImage image;
+        try {
+            InputStream inputStream = CustomTools.class.getResourceAsStream(resources);
+            image = ImageIO.read(inputStream);
+            imageContainer.setIcon(new ImageIcon(image));
+        } catch (IOException e) {
+            System.out.println("Error: " + e);
+        }
+    }
+
     public static String hideWord(String word) {
         String hiddenWord = "";
         for (int i = 0; i < word.length(); i++)

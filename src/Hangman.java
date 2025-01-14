@@ -101,6 +101,54 @@ public class Hangman extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        String command = e.getActionCommand();
+        if(command.equals("Reset"))
+            resetGame();
+        else if(command.equals("Quit")) {
+            dispose();
+            return;
+        }
+        else {
+            JButton button = (JButton) e.getSource();
+            button.setEnabled(false);
+
+            if(wordChallenge[1].contains(command)) {
+                button.setBackground(Color.GREEN);
+
+                char[] hiddenWord = hiddenWordLabel.getText().toCharArray();
+
+                for(int i = 0; i < wordChallenge[1].length(); i++)
+                    if(wordChallenge[1].charAt(i) == command.charAt(0))
+                        hiddenWord[i] = command.charAt(0);
+
+                hiddenWordLabel.setText(String.valueOf(hiddenWord));
+
+            }
+            else {
+                button.setBackground(Color.RED);
+                incorrectGuesses++;
+                CustomTools.updateImage(hangmanImage, "resources/hangman" + (incorrectGuesses + 1) + ".png");
+            }
+
+        }
+    }
+
+    private void resetGame() {
+        wordChallenge = wordDB.loadChallenge();
+        incorrectGuesses = 0;
+
+        CustomTools.updateImage(hangmanImage, CommonConstants.IMAGE_PATH);
+
+        categoryLabel.setText(wordChallenge[0]);
+
+        String hiddenWord = CustomTools.hideWord(wordChallenge[1]);
+        hiddenWordLabel.setText(hiddenWord);
+
+        for(int i = 0; i < letterButtons.length; i++) {
+            letterButtons[i].setEnabled(true);
+            letterButtons[i].setBackground(CommonConstants.PRIMARY_COLOUR);
+        }
 
     }
+
 }
