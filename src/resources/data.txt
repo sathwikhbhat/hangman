@@ -1,0 +1,7 @@
+Animals, Cat, Dog, Bird, Fish, Horse, Cow, Pig, Sheep, Goat, Deer, Tiger, Lion
+Fruits, Apple, Banana, Orange, Grape, Mango, Pear, Pineapple, Strawberry, Watermelon, Cherry
+Vegetables, Carrot, Potato, Onion, Tomato, Lettuce, Broccoli, Spinach, Cucumber, Pepper, Garlic
+Colors, Red, Blue, Green, Yellow, Orange, Purple, Pink, Brown, Black, White
+Countries, Pakistan, United Kingdom, France, Spain, Italy, Germany, Japan, China, India, Brazil
+Sports, Soccer, Football, Basketball, Baseball, Tennis, Cricket, Kabaddi, Badminton, Swimming
+Games, Chess, Poker, Sudoku, Scrabble, Monopoly, Snake and Ladder, Ludo

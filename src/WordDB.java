@@ -19,11 +19,12 @@ public class WordDB {
             String filePath = getClass().getClassLoader().getResource(CommonConstants.DATA_PATH).getPath();
 
             if (filePath.contains("%20")) filePath.replace("%20", " ");
-            BufferedReader br = new BufferedReader(new FileReader(filePath));
+
+            BufferedReader reader = new BufferedReader(new FileReader(filePath));
 
             String line;
             while ((line = reader.readLine()) != null) {
-                String parts = line.split(",");
+                String[] parts = line.split(",");
                 String category = parts[0];
                 categories.add(category);
 
