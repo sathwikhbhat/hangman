@@ -15,7 +15,7 @@ This simple implementation of the classic Hangman game uses Java and Java Swing 
 ## Installation
 
 1. Clone the repository to your local machine:
-      - git clone <https://github.com/sathwikhbhat/hangman.git>
+      - >git clone <https://github.com/sathwikhbhat/hangman.git>
 
 1. Open the project in IntelliJ IDEA or any Java IDE you choose.
 2. Ensure you have Java Development Kit (JDK) installed. This project was developed using JDK version 8 or higher.
