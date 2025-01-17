@@ -46,4 +46,4 @@ If you wish to contribute to this project, feel free to fork the repository, cre
 
 ## Contact Me
 
-Linkedin - https://www.linkedin.com/in/sathwikhbhat/
+[Linkedin](https://www.linkedin.com/in/sathwikhbhat)
