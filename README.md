@@ -40,6 +40,10 @@ This simple implementation of the classic Hangman game uses Java and Java Swing 
 
 If you wish to contribute to this project, feel free to fork the repository, create a new branch, and submit a pull request. Please ensure your code follows the project's coding style and passes all tests.
 
+## Reference
+
+[curadProgrammer](https://github.com/curadProgrammer)
+
 ## Contact Me
 
 Linkedin - https://www.linkedin.com/in/sathwikhbhat/
