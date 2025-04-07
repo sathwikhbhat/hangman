@@ -46,4 +46,4 @@ If you wish to contribute to this project, feel free to fork the repository, cre
 
 ## Contact Me
 
-[Linkedin](https://www.linkedin.com/in/sathwikhbhat)
+You can visit [this link](https://github.com/sathwikhbhat/sathwikhbhat?tab=readme-ov-file#-connect-with-me) to connect with me.
