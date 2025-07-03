@@ -12,6 +12,7 @@ public class CustomTools {
         BufferedImage image;
         try {
             InputStream inputStream = CustomTools.class.getResourceAsStream(resources);
+            assert inputStream != null;
             image = ImageIO.read(inputStream);
             return new JLabel(new ImageIcon(image));
         } catch (Exception e) {
@@ -24,6 +25,7 @@ public class CustomTools {
         BufferedImage image;
         try {
             InputStream inputStream = CustomTools.class.getResourceAsStream(resources);
+            assert inputStream != null;
             image = ImageIO.read(inputStream);
             imageContainer.setIcon(new ImageIcon(image));
         } catch (IOException e) {
@@ -34,12 +36,11 @@ public class CustomTools {
     public static Font createFont(String resources) {
 
         String filePath = CustomTools.class.getClassLoader().getResource(resources).getPath();
-        if(filePath.contains("%20")) filePath.replaceAll("%20", " ");
+        if (filePath.contains("%20")) filePath.replaceAll("%20", " ");
 
         try {
             File customFontfile = new File(filePath);
-            Font customFont = Font.createFont(Font.TRUETYPE_FONT, customFontfile);
-            return customFont;
+            return Font.createFont(Font.TRUETYPE_FONT, customFontfile);
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
@@ -48,13 +49,13 @@ public class CustomTools {
     }
 
     public static String hideWord(String word) {
-        String hiddenWord = "";
+        StringBuilder hiddenWord = new StringBuilder();
         for (int i = 0; i < word.length(); i++)
-            if(!Character.isWhitespace(word.charAt(i)))
-                hiddenWord += "*";
+            if (!Character.isWhitespace(word.charAt(i)))
+                hiddenWord.append("*");
             else
-                hiddenWord += " ";
-        return hiddenWord;
+                hiddenWord.append(" ");
+        return hiddenWord.toString();
     }
 
 }

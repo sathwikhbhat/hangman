@@ -1,10 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Random;
+import java.util.*;
 
 public class WordDB {
     private HashMap<String, String[]> wordList;
@@ -16,7 +13,7 @@ public class WordDB {
             wordList = new HashMap<>();
             categories = new ArrayList<>();
 
-            String filePath = getClass().getClassLoader().getResource(CommonConstants.DATA_PATH).getPath();
+            String filePath = Objects.requireNonNull(getClass().getClassLoader().getResource(CommonConstants.DATA_PATH)).getPath();
 
             if (filePath.contains("%20")) filePath.replaceAll("%20", " ");
 
@@ -28,7 +25,7 @@ public class WordDB {
                 String category = parts[0];
                 categories.add(category);
 
-                String values[] = Arrays.copyOfRange(parts, 1, parts.length);
+                String[] values = Arrays.copyOfRange(parts, 1, parts.length);
                 wordList.put(category, values);
             }
         } catch (IOException e) {

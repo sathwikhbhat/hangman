@@ -39,7 +39,7 @@ public class Hangman extends JFrame implements ActionListener {
     }
 
     public static Hangman getInstance() {
-        if(instance == null)
+        if (instance == null)
             instance = new Hangman();
         return instance;
     }
@@ -47,7 +47,8 @@ public class Hangman extends JFrame implements ActionListener {
     private void addGUIComponents() {
 
         hangmanImage = CustomTools.loadImage(CommonConstants.IMAGE_PATH);
-        hangmanImage.setBounds(0,0, hangmanImage.getPreferredSize().width, hangmanImage.getPreferredSize().height);
+        assert hangmanImage != null;
+        hangmanImage.setBounds(0, 0, hangmanImage.getPreferredSize().width, hangmanImage.getPreferredSize().height);
 
         categoryLabel = new JLabel(wordChallenge[0]);
         categoryLabel.setFont(customFont.deriveFont(Font.BOLD, 30f));
@@ -81,10 +82,10 @@ public class Hangman extends JFrame implements ActionListener {
                 hiddenWordLabel.getY() + hiddenWordLabel.getPreferredSize().height,
                 CommonConstants.Button_PANEL_SIZE.width,
                 CommonConstants.Button_PANEL_SIZE.height
-                );
+        );
         buttonPanel.setLayout(gridLayout);
 
-        for(char c = 'A'; c <= 'Z'; c++) {
+        for (char c = 'A'; c <= 'Z'; c++) {
             JButton button = new JButton(Character.toString(c));
             button.setBackground(CommonConstants.PRIMARY_COLOUR);
             button.setFont(customFont.deriveFont(Font.BOLD, 20f));
@@ -121,40 +122,38 @@ public class Hangman extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
-        if(command.equals("Reset") || command.equals("Restart")) {
+        if (command.equals("Reset") || command.equals("Restart")) {
             resetGame();
 
-            if(command.equals("Restart"))
+            if (command.equals("Restart"))
                 resultsDialog.setVisible(false);
-        }
-        else if(command.equals("Quit"))
+        } else if (command.equals("Quit"))
             System.exit(0);
         else {
             JButton button = (JButton) e.getSource();
             button.setEnabled(false);
 
-            if(wordChallenge[1].contains(command)) {
+            if (wordChallenge[1].contains(command)) {
                 button.setBackground(Color.GREEN);
 
                 char[] hiddenWord = hiddenWordLabel.getText().toCharArray();
 
-                for(int i = 0; i < wordChallenge[1].length(); i++)
-                    if(wordChallenge[1].charAt(i) == command.charAt(0))
+                for (int i = 0; i < wordChallenge[1].length(); i++)
+                    if (wordChallenge[1].charAt(i) == command.charAt(0))
                         hiddenWord[i] = command.charAt(0);
 
                 hiddenWordLabel.setText(String.valueOf(hiddenWord));
 
-                if(!hiddenWordLabel.getText().contains("*")) {
+                if (!hiddenWordLabel.getText().contains("*")) {
                     resultsLabel.setText("You got it right!!");
                     resultsDialog.setVisible(true);
                 }
 
-            }
-            else {
+            } else {
                 button.setBackground(Color.RED);
                 incorrectGuesses++;
                 CustomTools.updateImage(hangmanImage, "resources/" + (incorrectGuesses + 1) + ".png");
-                if(incorrectGuesses >= 6) {
+                if (incorrectGuesses >= 6) {
                     resultsLabel.setText("Too Bad. Try Again!!");
                     resultsDialog.setVisible(true);
                 }
@@ -210,9 +209,9 @@ public class Hangman extends JFrame implements ActionListener {
         String hiddenWord = CustomTools.hideWord(wordChallenge[1]);
         hiddenWordLabel.setText(hiddenWord);
 
-        for(int i = 0; i < letterButtons.length; i++) {
-            letterButtons[i].setEnabled(true);
-            letterButtons[i].setBackground(CommonConstants.PRIMARY_COLOUR);
+        for (JButton letterButton : letterButtons) {
+            letterButton.setEnabled(true);
+            letterButton.setBackground(CommonConstants.PRIMARY_COLOUR);
         }
 
     }
