@@ -1,3 +1,7 @@
+package util;
+
+import constants.CommandConstants;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -6,6 +10,9 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class CustomTools {
+    private CustomTools() {
+        /* This utility class should not be instantiated */
+    }
 
     public static JLabel loadImage(String resources) {
         BufferedImage image;
@@ -17,7 +24,7 @@ public class CustomTools {
             image = ImageIO.read(inputStream);
             return new JLabel(new ImageIcon(image));
         } catch (Exception e) {
-            System.out.println("Error: " + e);
+            System.out.println(CommandConstants.ERROR_PREFIX + e);
         }
         return null;
     }
@@ -32,7 +39,7 @@ public class CustomTools {
             image = ImageIO.read(inputStream);
             imageContainer.setIcon(new ImageIcon(image));
         } catch (IOException e) {
-            System.out.println("Error: " + e);
+            System.out.println(CommandConstants.ERROR_PREFIX + e);
         }
     }
 
@@ -43,20 +50,20 @@ public class CustomTools {
             }
             return Font.createFont(Font.TRUETYPE_FONT, inputStream);
         } catch (Exception e) {
-            System.out.println("Error: " + e);
+            System.out.println(CommandConstants.ERROR_PREFIX + e);
         }
         return null;
-
     }
 
     public static String hideWord(String word) {
         StringBuilder hiddenWord = new StringBuilder();
+
         for (int i = 0; i < word.length(); i++)
             if (!Character.isWhitespace(word.charAt(i)))
                 hiddenWord.append("*");
             else
                 hiddenWord.append(" ");
+
         return hiddenWord.toString();
     }
-
 }

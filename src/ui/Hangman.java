@@ -1,3 +1,9 @@
+package ui;
+
+import constants.*;
+import game.WordDB;
+import util.CustomTools;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,45 +14,46 @@ import java.awt.event.WindowEvent;
 public class Hangman extends JFrame implements ActionListener {
 
     private static Hangman instance;
-
+    private final WordDB wordDB;
+    private final JButton[] letterButtons;
+    private final Font customFont;
     private int incorrectGuesses = 0;
     private String[] wordChallenge;
-
-    private final WordDB wordDB;
-    private JLabel hangmanImage, categoryLabel, hiddenWordLabel, resultsLabel, wordLabel;
-    private JButton[] letterButtons;
+    private JLabel hangmanImage;
+    private JLabel categoryLabel;
+    private JLabel hiddenWordLabel;
+    private JLabel resultsLabel;
+    private JLabel wordLabel;
     private JDialog resultsDialog;
-    private Font customFont;
 
     protected Hangman() {
         super("Hangman Game");
-        setSize(CommonConstants.FRAME_SIZE);
+        setSize(DimensionConstants.FRAME_SIZE);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(null);
         setResizable(false);
-        getContentPane().setBackground(CommonConstants.BACKGROUND_COLOUR);
+        getContentPane().setBackground(ColorConstants.BACKGROUND_COLOUR);
 
         wordDB = new WordDB();
         letterButtons = new JButton[26];
         wordChallenge = wordDB.loadChallenge();
 
-        customFont = CustomTools.createFont(CommonConstants.FONT_PATH);
+        customFont = CustomTools.createFont(PathConstants.FONT_PATH);
         createResultDialog();
 
         addGUIComponents();
-
     }
 
     public static Hangman getInstance() {
         if (instance == null)
             instance = new Hangman();
+
         return instance;
     }
 
     private void addGUIComponents() {
-
-        hangmanImage = CustomTools.loadImage(CommonConstants.IMAGE_PATH);
+        hangmanImage = CustomTools.loadImage(PathConstants.IMAGE_PATH);
         assert hangmanImage != null;
         hangmanImage.setBounds(0, 0, hangmanImage.getPreferredSize().width, hangmanImage.getPreferredSize().height);
 
@@ -55,14 +62,13 @@ public class Hangman extends JFrame implements ActionListener {
         categoryLabel.setHorizontalAlignment(SwingConstants.CENTER);
         categoryLabel.setOpaque(true);
         categoryLabel.setForeground(Color.WHITE);
-        categoryLabel.setBackground(CommonConstants.SECONDARY_COLOUR);
-        categoryLabel.setBorder(BorderFactory.createLineBorder(CommonConstants.SECONDARY_COLOUR));
+        categoryLabel.setBackground(ColorConstants.SECONDARY_COLOUR);
+        categoryLabel.setBorder(BorderFactory.createLineBorder(ColorConstants.SECONDARY_COLOUR));
         categoryLabel.setBounds(
                 0,
                 hangmanImage.getPreferredSize().height - 28,
-                CommonConstants.FRAME_SIZE.width,
-                categoryLabel.getPreferredSize().height
-        );
+                DimensionConstants.FRAME_SIZE.width,
+                categoryLabel.getPreferredSize().height);
 
         hiddenWordLabel = new JLabel(CustomTools.hideWord(wordChallenge[1]));
         hiddenWordLabel.setFont(customFont.deriveFont(Font.BOLD, 60f));
@@ -71,23 +77,21 @@ public class Hangman extends JFrame implements ActionListener {
         hiddenWordLabel.setBounds(
                 0,
                 categoryLabel.getY() + categoryLabel.getPreferredSize().height + 50,
-                CommonConstants.FRAME_SIZE.width,
-                hiddenWordLabel.getPreferredSize().height
-        );
+                DimensionConstants.FRAME_SIZE.width,
+                hiddenWordLabel.getPreferredSize().height);
 
         GridLayout gridLayout = new GridLayout(4, 7);
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBounds(
                 -5,
                 hiddenWordLabel.getY() + hiddenWordLabel.getPreferredSize().height,
-                CommonConstants.Button_PANEL_SIZE.width,
-                CommonConstants.Button_PANEL_SIZE.height
-        );
+                DimensionConstants.BUTTON_PANEL_SIZE.width,
+                DimensionConstants.BUTTON_PANEL_SIZE.height);
         buttonPanel.setLayout(gridLayout);
 
         for (char c = 'A'; c <= 'Z'; c++) {
             JButton button = new JButton(Character.toString(c));
-            button.setBackground(CommonConstants.PRIMARY_COLOUR);
+            button.setBackground(ColorConstants.PRIMARY_COLOUR);
             button.setFont(customFont.deriveFont(Font.BOLD, 20f));
             button.setForeground(Color.WHITE);
             button.addActionListener(this);
@@ -97,18 +101,17 @@ public class Hangman extends JFrame implements ActionListener {
             buttonPanel.add(letterButtons[currentIndex]);
         }
 
-
         JButton resetButton = new JButton("Reset");
         resetButton.setFont(customFont.deriveFont(Font.BOLD, 20f));
         resetButton.setForeground(Color.WHITE);
-        resetButton.setBackground(CommonConstants.SECONDARY_COLOUR);
+        resetButton.setBackground(ColorConstants.SECONDARY_COLOUR);
         resetButton.addActionListener(this);
         buttonPanel.add(resetButton);
 
         JButton quitButton = new JButton("Quit");
         quitButton.setFont(customFont.deriveFont(Font.BOLD, 20f));
         quitButton.setForeground(Color.WHITE);
-        quitButton.setBackground(CommonConstants.SECONDARY_COLOUR);
+        quitButton.setBackground(ColorConstants.SECONDARY_COLOUR);
         quitButton.addActionListener(this);
         buttonPanel.add(quitButton);
 
@@ -116,16 +119,16 @@ public class Hangman extends JFrame implements ActionListener {
         getContentPane().add(hangmanImage);
         getContentPane().add(hiddenWordLabel);
         getContentPane().add(buttonPanel);
-
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
-        if (command.equals("Reset") || command.equals("Restart")) {
+
+        if (command.equals("Reset") || command.equals(CommandConstants.RESTART_COMMAND)) {
             resetGame();
 
-            if (command.equals("Restart"))
+            if (command.equals(CommandConstants.RESTART_COMMAND))
                 resultsDialog.setVisible(false);
         } else if (command.equals("Quit"))
             System.exit(0);
@@ -152,8 +155,9 @@ public class Hangman extends JFrame implements ActionListener {
             } else {
                 button.setBackground(Color.RED);
                 incorrectGuesses++;
-                CustomTools.updateImage(hangmanImage, "resources/" + (incorrectGuesses + 1) + ".png");
-                if (incorrectGuesses >= 6) {
+                CustomTools.updateImage(hangmanImage,
+                        PathConstants.IMAGES_DIRECTORY + (incorrectGuesses + 1) + ".png");
+                if (incorrectGuesses >= GameConstants.MAX_INCORRECT_GUESSES) {
                     resultsLabel.setText("Too Bad. Try Again!!");
                     resultsDialog.setVisible(true);
                 }
@@ -163,11 +167,10 @@ public class Hangman extends JFrame implements ActionListener {
     }
 
     private void createResultDialog() {
-
         resultsDialog = new JDialog();
         resultsDialog.setTitle("Results");
-        resultsDialog.setSize(CommonConstants.RESULT_PANEL_SIZE);
-        resultsDialog.getContentPane().setBackground(CommonConstants.BACKGROUND_COLOUR);
+        resultsDialog.setSize(DimensionConstants.RESULT_PANEL_SIZE);
+        resultsDialog.getContentPane().setBackground(ColorConstants.BACKGROUND_COLOUR);
         resultsDialog.setResizable(false);
         resultsDialog.setLocationRelativeTo(this);
         resultsDialog.setModal(true);
@@ -187,22 +190,21 @@ public class Hangman extends JFrame implements ActionListener {
         wordLabel.setForeground(Color.WHITE);
         wordLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-        JButton restartButton = new JButton("Restart");
+        JButton restartButton = new JButton(CommandConstants.RESTART_COMMAND);
         restartButton.setForeground(Color.WHITE);
-        restartButton.setBackground(CommonConstants.SECONDARY_COLOUR);
+        restartButton.setBackground(ColorConstants.SECONDARY_COLOUR);
         restartButton.addActionListener(this);
 
         resultsDialog.add(resultsLabel);
         resultsDialog.add(wordLabel);
         resultsDialog.add(restartButton);
-
     }
 
     private void resetGame() {
         wordChallenge = wordDB.loadChallenge();
         incorrectGuesses = 0;
 
-        CustomTools.updateImage(hangmanImage, CommonConstants.IMAGE_PATH);
+        CustomTools.updateImage(hangmanImage, PathConstants.IMAGE_PATH);
 
         categoryLabel.setText(wordChallenge[0]);
 
@@ -211,9 +213,7 @@ public class Hangman extends JFrame implements ActionListener {
 
         for (JButton letterButton : letterButtons) {
             letterButton.setEnabled(true);
-            letterButton.setBackground(CommonConstants.PRIMARY_COLOUR);
+            letterButton.setBackground(ColorConstants.PRIMARY_COLOUR);
         }
-
     }
-
 }

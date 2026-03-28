@@ -1,3 +1,5 @@
+import ui.Hangman;
+
 import javax.swing.*;
 
 public class App {
